@@ -1,12 +1,20 @@
-module.exports = async (ctx, next) => {
-  ctx.data = await new Promise((s, j) => {
-    let data = ''
-    try {
-      ctx.req.on('data', msg => data += msg)
-      ctx.req.on('end', () => s(data))
-    } catch(e) {
-      j(e)
-    }
-  })
+const formatter = require('./utils/formatter')
+
+module.exports = option => async (ctx, next) => {
+  const { prefix = '', type } = option
+
+  if (new RegExp(`^${prefix}`).test(ctx.path)) {
+    const data = await new Promise((res, rej) => {
+      let msg = ''
+      try {
+        ctx.req.on('data', b => msg += b)
+        ctx.req.on('end', () => res(msg))
+      } catch(e) {
+        rej(e)
+      }
+    })
+    ctx.data = formatter(type, data)
+  }
+
   await next()
 }
