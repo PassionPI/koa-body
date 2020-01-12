@@ -1,7 +1,7 @@
 const formatter = require('./utils/formatter')
 
 module.exports = option => {
-  const { prefix = '', type } = option
+  const { prefix = '', type = '' } = option
   const reg = new RegExp(`^${prefix}`)
   
   return async (ctx, next) => {
