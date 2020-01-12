@@ -3,7 +3,7 @@ module.exports = async (ctx, next) => {
     let data = ''
     try {
       ctx.req.on('data', msg => data += msg)
-      ctx.req.on('end', () => s(msg))
+      ctx.req.on('end', () => s(data))
     } catch(e) {
       j(e)
     }
