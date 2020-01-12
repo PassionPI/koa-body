@@ -15,7 +15,7 @@ module.exports = option => {
           rej(e)
         }
       })
-      ctx.data = formatter(type, data)
+      ctx.data = formatter(type, decodeURIComponent(data))
     }
 
     await next()
