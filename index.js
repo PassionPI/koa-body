@@ -1,21 +1,14 @@
+const onData = require('./utils/onData')
 const formatter = require('./utils/formatter')
 
-module.exports = option => {
-  const { prefix = '', type = '' } = option
+module.exports = ({ prefix = '', type = '' }) => {
+  const cat = `${type}`
   const reg = new RegExp(`^${prefix}`)
-  
+
   return async (ctx, next) => {
-    if (reg.test(ctx.path)) {
-      const data = await new Promise((res, rej) => {
-        let msg = ''
-        try {
-          ctx.req.on('data', b => msg += b)
-          ctx.req.on('end', () => res(msg))
-        } catch(e) {
-          rej(e)
-        }
-      })
-      ctx.data = formatter(type, decodeURIComponent(data))
+
+    if (ctx.data === undefined && reg.test(ctx.path)) {
+      ctx.data = formatter(cat, await onData(ctx))
     }
 
     await next()
