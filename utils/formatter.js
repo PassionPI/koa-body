@@ -6,7 +6,7 @@ module.exports = (type, data) => {
   if (msg === '') return undefined
 
   try {
-    switch (type.toLowerCase()) {
+    switch (type) {
       case 'json':
         return JSON.parse(msg)
       case 'formdata': 

@@ -2,13 +2,17 @@ const onData = require('./utils/onData')
 const formatter = require('./utils/formatter')
 
 module.exports = ({ prefix = '', type = '' }) => {
-  const cat = `${type}`
+  const cat = `${type}`.toLowerCase()
   const reg = new RegExp(`^${prefix}`)
 
   return async (ctx, next) => {
 
-    if (ctx.data === undefined && reg.test(ctx.path)) {
-      ctx.data = formatter(cat, await onData(ctx))
+    if (ctx.request.body === undefined && reg.test(ctx.path)) {
+      try {
+        ctx.request.body = formatter(cat, await onData(ctx))
+      } catch(e) {
+        console.error(e)
+      }
     }
 
     await next()

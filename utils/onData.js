@@ -1,12 +1,8 @@
-module.exports = ({ req }) => new Promise((res, rej) => {
+module.exports = ({ req }) => new Promise((res) => {
   let msg = ''
-  try {
-    req.on('close', onClose)
-    req.on('data', onData)
-    req.on('end', onEnd)
-  } catch(e) {
-    rej(e)
-  }
+  req.on('close', onClose)
+  req.on('data', onData)
+  req.on('end', onEnd)
   
   function onClose() {
     req.removeListener('close', onClose)

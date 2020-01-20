@@ -1,6 +1,6 @@
 {
   "name": "@passion_pi/koa-body",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "index.js",
   "repository": "git@github.com:PassionPI/koa-body.git",
   "author": "PassionPI <472121553@qq.com>",
