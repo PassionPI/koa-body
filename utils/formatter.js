@@ -15,7 +15,7 @@ module.exports = (type, data) => {
         return msg
     }
   } catch(e) {
-    console.error(e)
+    console.error(`Body parse failed.${e}`)
     return msg
   }
   

@@ -1,7 +1,8 @@
 const onData = require('./utils/onData')
 const formatter = require('./utils/formatter')
 
-module.exports = ({ prefix = '', type = '' }) => {
+module.exports = (options = {}) => {
+  const { prefix = '', type = '' } = options
   const cat = `${type}`.toLowerCase()
   const reg = new RegExp(`^${prefix}`)
 
